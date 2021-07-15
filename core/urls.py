@@ -11,6 +11,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),          # Django admin route
     path("api/sensors/temp_outdoor", graphTempOutdoor),
     path("api/sensors/temp", graphTemp),
-    # path("", include("authentication.urls")), # Auth routes - login / register
+    path("", include("authentication.urls")), # Auth routes - login / register
     path("", include("app.urls"))             # UI Kits Html files
 ]
