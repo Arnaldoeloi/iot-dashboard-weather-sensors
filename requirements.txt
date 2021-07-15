@@ -10,4 +10,4 @@ python-decouple
 gunicorn
 whitenoise
 requests
-psycopg2
+psycopg2>=2.8,<2.9
