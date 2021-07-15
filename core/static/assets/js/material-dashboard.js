@@ -311,9 +311,9 @@ md = {
 
   initDashboardPageCharts: function() {
 
-    if ($('#outdoorTemp').length != 0 || $('#completedTasksChart').length != 0 || $('#websiteViewsChart').length != 0) {
+    if ($('#outdoorTemp').length != 0 || $('#temperature').length != 0) {
       /* ----------==========     Daily Sales Chart initialization    ==========---------- */
-      $.ajax({url: "/api/sensors/temp", success: function(result){
+      $.ajax({url: "/api/sensors/temp_outdoor", success: function(result){
         series = result.feeds.reverse().slice(0,50);
         console.log(series.map(v => ({'y' : v.field1, 'x':new Date(v.created_at)})))
         dataOutdoorTemp = {
@@ -326,8 +326,46 @@ md = {
           lineSmooth: Chartist.Interpolation.cardinal({
             tension: 0
           }),
-          low: -10,
-          high: 40, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+          low: 0,
+          high: 50,
+          chartPadding: {
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0
+          },
+          showPoint: false,
+          axisX: {
+            type: Chartist.FixedScaleAxis,
+            divisor: 5,
+            labelInterpolationFnc: function(value){
+              return moment(value).format("H:m");
+            }
+          }
+        }
+  
+        var outdoorTemp = new Chartist.Line('#outdoorTemp', dataOutdoorTemp, optionsOutdoorTemp);
+  
+        md.startAnimationForLineChart(outdoorTemp);
+      
+      }});
+      
+      $.ajax({url: "/api/sensors/temp", success: function(result){
+        series = result.feeds.reverse().slice(0,50);
+        console.log(series.map(v => ({'y' : v.field2, 'x':new Date(v.created_at)})))
+        dataTemperature = {
+          series: [{
+            data: series.map(v => ({'x':new Date(v.created_at),'y' : v.field2})),
+          }]
+        };
+        
+        optionsTemperature = {
+          lineSmooth: Chartist.Interpolation.cardinal({
+            tension: 0
+          }),
+          showPoint: false,
+          low: 30,
+          high: 33, 
           chartPadding: {
             top: 0,
             right: 0,
@@ -343,7 +381,7 @@ md = {
           }
         }
   
-        var outdoorTemp = new Chartist.Line('#outdoorTemp', dataOutdoorTemp, optionsOutdoorTemp);
+        var outdoorTemp = new Chartist.Line('#temperature', dataTemperature, optionsTemperature);
   
         md.startAnimationForLineChart(outdoorTemp);
       
@@ -354,69 +392,36 @@ md = {
 
       /* ----------==========     Completed Tasks Chart initialization    ==========---------- */
 
-      dataCompletedTasksChart = {
-        labels: ['12p', '3p', '6p', '9p', '12p', '3a', '6a', '9a'],
-        series: [
-          [230, 750, 450, 300, 280, 240, 200, 190]
-        ]
-      };
+      // dataCompletedTasksChart = {
+      //   labels: ['12p', '3p', '6p', '9p', '12p', '3a', '6a', '9a'],
+      //   series: [
+      //     [230, 750, 450, 300, 280, 240, 200, 190]
+      //   ]
+      // };
 
-      optionsCompletedTasksChart = {
-        lineSmooth: Chartist.Interpolation.cardinal({
-          tension: 0
-        }),
-        low: 0,
-        high: 1000, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
-        chartPadding: {
-          top: 0,
-          right: 0,
-          bottom: 0,
-          left: 0
-        }
-      }
+      // optionsCompletedTasksChart = {
+      //   lineSmooth: Chartist.Interpolation.cardinal({
+      //     tension: 0
+      //   }),
+      //   low: 0,
+      //   high: 1000, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+      //   chartPadding: {
+      //     top: 0,
+      //     right: 0,
+      //     bottom: 0,
+      //     left: 0
+      //   }
+      // }
 
-      var completedTasksChart = new Chartist.Line('#completedTasksChart', dataCompletedTasksChart, optionsCompletedTasksChart);
+      // var completedTasksChart = new Chartist.Line('#completedTasksChart', dataCompletedTasksChart, optionsCompletedTasksChart);
 
-      // start animation for the Completed Tasks Chart - Line Chart
-      md.startAnimationForLineChart(completedTasksChart);
+      // // start animation for the Completed Tasks Chart - Line Chart
+      // md.startAnimationForLineChart(completedTasksChart);
 
 
       /* ----------==========     Emails Subscription Chart initialization    ==========---------- */
 
-      var dataWebsiteViewsChart = {
-        labels: ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
-        series: [
-          [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895]
-
-        ]
-      };
-      var optionsWebsiteViewsChart = {
-        axisX: {
-          showGrid: false
-        },
-        low: 0,
-        high: 1000,
-        chartPadding: {
-          top: 0,
-          right: 5,
-          bottom: 0,
-          left: 0
-        }
-      };
-      var responsiveOptions = [
-        ['screen and (max-width: 640px)', {
-          seriesBarDistance: 5,
-          axisX: {
-            labelInterpolationFnc: function(value) {
-              return value[0];
-            }
-          }
-        }]
-      ];
-      var websiteViewsChart = Chartist.Bar('#websiteViewsChart', dataWebsiteViewsChart, optionsWebsiteViewsChart, responsiveOptions);
-
-      //start animation for the Emails Subscription Chart
-      md.startAnimationForBarChart(websiteViewsChart);
+     
     }
   },
 

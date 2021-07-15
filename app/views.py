@@ -22,8 +22,13 @@ def index(request):
     return HttpResponse(html_template.render(context, request))
 
 
-def graphTemp(request):
+def graphTempOutdoor(request):
     response = requests.get("https://thingspeak.com/channels/196384/field/1.json")
+    data = response.json()
+    return JsonResponse(data)
+
+def graphTemp(request):
+    response = requests.get("https://thingspeak.com/channels/196384/field/2.json")
     data = response.json()
     return JsonResponse(data)
 
