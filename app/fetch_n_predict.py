@@ -62,8 +62,7 @@ def fetch_and_predict(
 
         future = m.make_future_dataframe(periods=100, freq="5min")
         forecast = m.predict(future)
-        forecast.tail(5)
-
+        
         forecast_sensor_df = forecast[['ds','yhat']]
         forecast_sensor_df = forecast_sensor_df.rename(columns={"ds":"created_at", "y":value_column_name})
         forecast_sensor_df = forecast_sensor_df.iloc[-100:]

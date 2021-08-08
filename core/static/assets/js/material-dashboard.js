@@ -144,7 +144,7 @@ $(window).resize(function() {
 
   setTimeout(function() {
     md.initDashboardPageCharts();
-  }, 500);
+  }, 10000);
 });
 
 md = {
@@ -311,7 +311,7 @@ md = {
 
   initDashboardPageCharts: function() {
 
-    if ($('#outdoorTemp').length != 0 || $('#temperature').length != 0) {
+    if ($('#outdoorTemp').length != 0 || $('#temperature').length != 0 || $('#field1_predictions').length != 0) {
       /* ----------==========     Daily Sales Chart initialization    ==========---------- */
       $.ajax({url: "/api/sensors/field1", success: function(result){
         series = result.data;
@@ -345,33 +345,36 @@ md = {
         }
   
         var outdoorTemp = new Chartist.Line('#outdoorTemp', dataOutdoorTemp, optionsOutdoorTemp);
-  
+    
         md.startAnimationForLineChart(outdoorTemp);
+        $("#field1_avg").text(result.meta.avg)
+        $("#field1_var").text(result.meta.var)
+        $("#last_update_field1").text((new Date(result.meta.created_at)).toDateString())
       
       }});
       
-      $.ajax({url: "/api/sensors/field2", success: function(result){
+      $.ajax({url: "/api/sensors/field1/predict", success: function(result){
         series = result.data;
-        console.log(series.map(v => ({'y' : v.field2, 'x':new Date(v.created_at)})))
-        dataTemperature = {
+        console.log(series.map(v => ({'y' : v.yhat, 'x':new Date(v.created_at)})))
+        dataFieldValues = {
           series: [{
-            data: series.map(v => ({'x':new Date(v.created_at),'y' : v.field2})),
+            data: series.map(v => ({'x':new Date(v.created_at),'y' : v.yhat})),
           }]
         };
         
-        optionsTemperature = {
+        optionsFieldValues = {
           lineSmooth: Chartist.Interpolation.cardinal({
             tension: 0
           }),
-          showPoint: false,
           low: result.min,
-          high: result.max, 
+          high: result.max,
           chartPadding: {
             top: 0,
             right: 0,
             bottom: 0,
             left: 0
           },
+          showPoint: false,
           axisX: {
             type: Chartist.FixedScaleAxis,
             divisor: 5,
@@ -381,12 +384,171 @@ md = {
           }
         }
   
-        var outdoorTemp = new Chartist.Line('#temperature', dataTemperature, optionsTemperature);
+        var fieldValues = new Chartist.Line('#field1_predictions', dataFieldValues, optionsFieldValues);
   
-        md.startAnimationForLineChart(outdoorTemp);
+        $("#field1_predictions_avg").text(result.meta.avg)
+        $("#field1_predictions_var").text(result.meta.var)
+        $("#last_update_field1_predictions").text((new Date(result.meta.created_at)).toDateString())
+        md.startAnimationForLineChart(fieldValues);
+      }});
       
+      $.ajax({url: "/api/sensors/field2", success: function(result){
+        series = result.data;
+        console.log(series.map(v => ({'y' : v.field2, 'x':new Date(v.created_at)})))
+        dataFieldValues = {
+          series: [{
+            data: series.map(v => ({'x':new Date(v.created_at),'y' : v.field2})),
+          }]
+        };
+        
+        optionsFieldValues = {
+          lineSmooth: Chartist.Interpolation.cardinal({
+            tension: 0
+          }),
+          low: result.min,
+          high: result.max,
+          chartPadding: {
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0
+          },
+          showPoint: false,
+          axisX: {
+            type: Chartist.FixedScaleAxis,
+            divisor: 5,
+            labelInterpolationFnc: function(value){
+              return moment(value).format("H:m");
+            }
+          }
+        }
+  
+        var fieldValues = new Chartist.Line('#field2', dataFieldValues, optionsFieldValues);
+  
+        $("#field2_avg").text(result.meta.avg)
+        $("#field2_var").text(result.meta.var)
+        $("#last_update_field2").text((new Date(result.meta.created_at)).toDateString())
+        md.startAnimationForLineChart(fieldValues);
+      }});
+      
+      
+      $.ajax({url: "/api/sensors/field2/predict", success: function(result){
+        series = result.data;
+        console.log(series.map(v => ({'y' : v.yhat, 'x':new Date(v.created_at)})))
+        dataFieldValues = {
+          series: [{
+            data: series.map(v => ({'x':new Date(v.created_at),'y' : v.yhat})),
+          }]
+        };
+        
+        optionsFieldValues = {
+          lineSmooth: Chartist.Interpolation.cardinal({
+            tension: 0
+          }),
+          low: result.min,
+          high: result.max,
+          chartPadding: {
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0
+          },
+          showPoint: false,
+          axisX: {
+            type: Chartist.FixedScaleAxis,
+            divisor: 5,
+            labelInterpolationFnc: function(value){
+              return moment(value).format("H:m");
+            }
+          }
+        }
+  
+        var fieldValues = new Chartist.Line('#field2_predictions', dataFieldValues, optionsFieldValues);
+  
+        $("#field2_predictions_avg").text(result.meta.avg)
+        $("#field2_predictions_var").text(result.meta.var)
+        $("#last_update_field2_predictions").text((new Date(result.meta.created_at)).toDateString())
+        md.startAnimationForLineChart(fieldValues);
       }});
 
+      $.ajax({url: "/api/sensors/field3", success: function(result){
+        series = result.data;
+        console.log(series.map(v => ({'y' : v.field3, 'x':new Date(v.created_at)})))
+        dataFieldValues = {
+          series: [{
+            data: series.map(v => ({'x':new Date(v.created_at),'y' : v.field3})),
+          }]
+        };
+        
+        optionsFieldValues = {
+          lineSmooth: Chartist.Interpolation.cardinal({
+            tension: 0
+          }),
+          low: result.min,
+          high: result.max,
+          chartPadding: {
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0
+          },
+          showPoint: false,
+          axisX: {
+            type: Chartist.FixedScaleAxis,
+            divisor: 5,
+            labelInterpolationFnc: function(value){
+              return moment(value).format("H:m");
+            }
+          }
+        }
+  
+        var fieldValues = new Chartist.Line('#field3', dataFieldValues, optionsFieldValues);
+  
+        $("#field3_avg").text(result.meta.avg)
+        $("#field3_var").text(result.meta.var)
+        $("#last_update_field3").text((new Date(result.meta.created_at)).toDateString())
+        md.startAnimationForLineChart(fieldValues);
+      }});
+      
+      $.ajax({url: "/api/sensors/field4", success: function(result){
+        series = result.data;
+        console.log(series.map(v => ({'y' : v.field4, 'x':new Date(v.created_at)})))
+        dataFieldValues = {
+          series: [{
+            data: series.map(v => ({'x':new Date(v.created_at),'y' : v.field4})),
+          }]
+        };
+        
+        optionsFieldValues = {
+          lineSmooth: Chartist.Interpolation.cardinal({
+            tension: 0
+          }),
+          low: result.min,
+          high: result.max,
+          chartPadding: {
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0
+          },
+          showPoint: false,
+          axisX: {
+            type: Chartist.FixedScaleAxis,
+            divisor: 5,
+            labelInterpolationFnc: function(value){
+              return moment(value).format("H:m");
+            }
+          }
+        }
+  
+        var fieldValues = new Chartist.Line('#field4', dataFieldValues, optionsFieldValues);
+  
+        $("#field4_avg").text(result.meta.avg)
+        $("#field4_var").text(result.meta.var)
+        $("#last_update_field4").text((new Date(result.meta.created_at)).toDateString())
+        md.startAnimationForLineChart(fieldValues);
+      }});
+      
 
 
 

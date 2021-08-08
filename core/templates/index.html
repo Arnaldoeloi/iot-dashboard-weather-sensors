@@ -9,9 +9,12 @@
 
     <div class="row"> 
       <div class="col-12">
-        <p>Trabalho da disciplina IMD0902-INTRODUÇÃO A INTERNET DAS COISAS-T01(2021.1), com objetivo de ler sensores de um <a href="https://thingspeak.com/channels/196384" target="_blank">canal do Thingspeak</a> e mostrá-lo em um template gratuito do Django através de gráficos. Por <a href="https://arnaldosouza.com">Arnaldo Souza</a></p>
+        <p>Trabalho da disciplina IMD0902-INTRODUÇÃO A INTERNET DAS COISAS-T01(2021.1), com objetivo de ler sensores de um <a href="https://thingspeak.com/channels/196384" target="_blank">canal do Thingspeak</a>, utilizar aprendizado de máquina, prever os dados para o futuro próximo e mostrá-los em um template gratuito do Django através de gráficos. Por <a href="https://arnaldosouza.com">Arnaldo Souza</a></p>
+
+        <p><strong>Obs:</strong> a cada minuto o navegador perguntará ao backend se há alteração nos dados a fim de recriá-los. Caso tenha-se passado mais de 5 minutos desde a última atualização de dados, o backend faz uma nova previsão com base nos últimos 500 dados do Thingspeak.</p>
       </div>
     </div>
+    <h2>Field 1</h2>
     <div class="row">
       <div class="col-6">
         <div class="card card-chart">
@@ -19,17 +22,17 @@
             <div class="ct-chart" id="outdoorTemp"></div>
           </div>
           <div class="card-body">
-            <h4 class="card-title">[Field 1] Outdoor Temperature (DS18B20)</h4>
+            <h4 class="card-title"><strong>[Field 1]</strong> Outdoor Temperature (DS18B20)</h4>
             <p class="card-category">
               Outdoor temperature of sensor DS18B20.</p>
               <div>
-                <span>Média no período:</span><strong id="field1_avg">71</strong><br>
-                <span>Variação no período:</span><strong id="field1_var">21</strong>
+                <span>Média no período: </span><strong id="field1_avg"></strong><br>
+                <span>Variação no período: </span><strong id="field1_var"></strong>
               </div>
           </div>
           <div class="card-footer">
             <div class="stats">
-              <i class="material-icons">access_time</i> Última atualização em <span id="last_update_field1"></span>
+              <i class="material-icons">access_time</i> Última atualização em <strong class="pl-1" id="last_update_field1"></strong>
             </div>
           </div>
         </div>
@@ -37,38 +40,123 @@
       
       <div class="col-6">
         <div class="card card-chart">
-          <div class="card-header card-header-danger">
-            <div class="ct-chart" id="temperature"></div>
+          <div class="card-header card-header-info">
+            <div class="ct-chart" id="field1_predictions"></div>
           </div>
           <div class="card-body">
-            <h4 class="card-title">Temperature (Si7021)</h4>
-            <p class="card-category">Temperature of sensor Si7021</p>
+            <h4 class="card-title"><strong>[Prophet Prediction Field 1]</strong> Outdoor Temperature (DS18B20)</h4>
+            <p class="card-category">
+              Predictions using facebook prophet for next hours in Outdoor temperature of sensor DS18B20.</p>
+              <div>
+                <span>Média no período: </span><strong id="field1_predictions_avg"></strong><br>
+                <span>Variação no período: </span><strong id="field1_predictions_var"></strong>
+              </div>
           </div>
           <div class="card-footer">
             <div class="stats">
-              <i class="material-icons">access_time</i> A few minutes ago
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-6">
-        <div class="card card-chart">
-          <div class="card-header card-header-danger">
-            <div class="ct-chart" id="temperature"></div>
-          </div>
-          <div class="card-body">
-            <h4 class="card-title">Temperature (Si7021)</h4>
-            <p class="card-category">Temperature of sensor Si7021</p>
-          </div>
-          <div class="card-footer">
-            <div class="stats">
-              <i class="material-icons">access_time</i> A few minutes ago
+              <i class="material-icons">access_time</i> Última atualização em <strong class="pl-1" id="last_update_field1_predictions"></strong>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <h2>Field 2</h2>
+    <div class="row">
+      <div class="col-6">
+        <div class="card card-chart">
+          <div class="card-header card-header-warning">
+            <div class="ct-chart" id="field2"></div>
+          </div>
+          <div class="card-body">
+            <h4 class="card-title"><strong>[Field 2]</strong> Temperature (Si7021)</h4>
+            <p class="card-category">
+              Outdoor temperature of sensor Si7021.</p>
+              <div>
+                <span>Média no período: </span><strong id="field2_avg"></strong><br>
+                <span>Variação no período: </span><strong id="field2_var"></strong>
+              </div>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+              <i class="material-icons">access_time</i> Última atualização em <strong class="pl-1" id="last_update_field2"></strong>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-6">
+        <div class="card card-chart">
+          <div class="card-header card-header-info">
+            <div class="ct-chart" id="field2_predictions"></div>
+          </div>
+          <div class="card-body">
+            <h4 class="card-title"><strong>[Prophet Prediction Field 2]</strong> Temperature (Si7021)</h4>
+            <p class="card-category">
+              Predictions using facebook prophet for next hours in Outdoor temperature of sensor Si7021.</p>
+              <div>
+                <span>Média no período: </span><strong id="field2_predictions_avg"></strong><br>
+                <span>Variação no período: </span><strong id="field2_predictions_var"></strong>
+              </div>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+              <i class="material-icons">access_time</i> Última atualização em <strong class="pl-1" id="last_update_field2_predictions"></strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h2>Field 3</h2>
+    <div class="row">
+      <div class="col-12">
+        <div class="card card-chart">
+          <div class="card-header card-header-danger">
+            <div class="ct-chart" id="field3"></div>
+          </div>
+          <div class="card-body">
+            <h4 class="card-title"><strong>[Field 3]</strong> Air Pressure (BMP280)</h4>
+            <p class="card-category">
+              Outdoor temperature of sensor BMP280.</p>
+              <div>
+                <span>Média no período: </span><strong id="field3_avg"></strong><br>
+                <span>Variação no período: </span><strong id="field3_var"></strong>
+              </div>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+              <i class="material-icons">access_time</i> Última atualização em <strong class="pl-1" id="last_update_field3"></strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <h2>Field 4</h2>
+    <div class="row">
+      <div class="col-12">
+        <div class="card card-chart">
+          <div class="card-header card-header-warning">
+            <div class="ct-chart" id="field4"></div>
+          </div>
+          <div class="card-body">
+            <h4 class="card-title"><strong>[Field 4]</strong> Humidity (Si7021)</h4>
+            <p class="card-category">
+              Outdoor temperature of sensor Si7021.</p>
+              <div>
+                <span>Média no período: </span><strong id="field4_avg"></strong><br>
+                <span>Variação no período: </span><strong id="field4_var"></strong>
+              </div>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+              <i class="material-icons">access_time</i> Última atualização em <strong class="pl-1" id="last_update_field4"></strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
     
 
 {% endblock content %}
@@ -79,7 +167,10 @@
   <script>
     $(document).ready(function() {
       // Javascript method's body can be found in assets/js/demos.js
-      md.initDashboardPageCharts();
+      md.initDashboardPageCharts()
+      setInterval(()=>md.initDashboardPageCharts(), 60000);
+
+      // md.initDashboardPageCharts();
 
     });
   </script>

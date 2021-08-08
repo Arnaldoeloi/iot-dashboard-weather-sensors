@@ -199,7 +199,7 @@ def field3(request):
         # Only updates if it has been 5 minutes since last update
         time_diff = now_date - last_updated_json_at
         if(time_diff.seconds > 300):
-            fetch_n_predict.fetch_and_predict(csv_fetching_url="https://thingspeak.com/channels/196384/field/2.csv?results=500&api_key=UF678Q0VZLME300M",
+            fetch_n_predict.fetch_and_predict(csv_fetching_url="https://thingspeak.com/channels/196384/field/3.csv?results=500&api_key=UF678Q0VZLME300M",
                                 predictions_file_name = "field_3_predictions.json",
                                 value_column_name = "field3",
                                 fetched_file_name = "field_3.json",
@@ -211,7 +211,7 @@ def field3(request):
         return JsonResponse(data)
     else:
         print ("Either file is missing or is not readable. Creating!")
-        fetch_n_predict.fetch_and_predict(csv_fetching_url="https://thingspeak.com/channels/196384/field/2.csv?results=500&api_key=UF678Q0VZLME300M",
+        fetch_n_predict.fetch_and_predict(csv_fetching_url="https://thingspeak.com/channels/196384/field/3.csv?results=500&api_key=UF678Q0VZLME300M",
                                 predictions_file_name = "field_3_predictions.json",
                                 value_column_name = "field3",
                                 fetched_file_name = "field_3.json",
@@ -239,7 +239,7 @@ def field4(request):
         # Only updates if it has been 5 minutes since last update
         time_diff = now_date - last_updated_json_at
         if(time_diff.seconds > 300):
-            fetch_n_predict.fetch_and_predict(csv_fetching_url="https://thingspeak.com/channels/196384/field/2.csv?results=500&api_key=UF678Q0VZLME300M",
+            fetch_n_predict.fetch_and_predict(csv_fetching_url="https://thingspeak.com/channels/196384/field/4.csv?results=500&api_key=UF678Q0VZLME300M",
                                 predictions_file_name = "field_4_predictions.json",
                                 value_column_name = "field4",
                                 fetched_file_name = "field_4.json",
@@ -251,9 +251,9 @@ def field4(request):
         return JsonResponse(data)
     else:
         print ("Either file is missing or is not readable. Creating!")
-        fetch_n_predict.fetch_and_predict(csv_fetching_url="https://thingspeak.com/channels/196384/field/2.csv?results=500&api_key=UF678Q0VZLME300M",
+        fetch_n_predict.fetch_and_predict(csv_fetching_url="https://thingspeak.com/channels/196384/field/4.csv?results=500&api_key=UF678Q0VZLME300M",
                                 predictions_file_name = "field_4_predictions.json",
-                                value_column_name = "field2",
+                                value_column_name = "field4",
                                 fetched_file_name = "field_4.json",
                                 should_predict = True)
         field4(request)

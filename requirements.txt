@@ -1,5 +1,6 @@
 asgiref
 autopep8
+numpy
 django==2.2.10
 pycodestyle
 pytz
