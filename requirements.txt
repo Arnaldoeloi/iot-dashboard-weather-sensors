@@ -11,3 +11,5 @@ gunicorn
 whitenoise
 requests
 psycopg2>=2.8,<2.9
+fbprophet
+sklearn

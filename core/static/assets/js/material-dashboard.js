@@ -313,8 +313,8 @@ md = {
 
     if ($('#outdoorTemp').length != 0 || $('#temperature').length != 0) {
       /* ----------==========     Daily Sales Chart initialization    ==========---------- */
-      $.ajax({url: "/api/sensors/temp_outdoor", success: function(result){
-        series = result.feeds.reverse().slice(0,50);
+      $.ajax({url: "/api/sensors/field1", success: function(result){
+        series = result.data;
         console.log(series.map(v => ({'y' : v.field1, 'x':new Date(v.created_at)})))
         dataOutdoorTemp = {
           series: [{
@@ -326,8 +326,8 @@ md = {
           lineSmooth: Chartist.Interpolation.cardinal({
             tension: 0
           }),
-          low: 0,
-          high: 50,
+          low: result.min,
+          high: result.max,
           chartPadding: {
             top: 0,
             right: 0,
@@ -350,8 +350,8 @@ md = {
       
       }});
       
-      $.ajax({url: "/api/sensors/temp", success: function(result){
-        series = result.feeds.reverse().slice(0,50);
+      $.ajax({url: "/api/sensors/field2", success: function(result){
+        series = result.data;
         console.log(series.map(v => ({'y' : v.field2, 'x':new Date(v.created_at)})))
         dataTemperature = {
           series: [{
@@ -364,8 +364,8 @@ md = {
             tension: 0
           }),
           showPoint: false,
-          low: 30,
-          high: 33, 
+          low: result.min,
+          high: result.max, 
           chartPadding: {
             top: 0,
             right: 0,

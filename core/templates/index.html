@@ -13,15 +13,36 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-6">
         <div class="card card-chart">
           <div class="card-header card-header-success">
             <div class="ct-chart" id="outdoorTemp"></div>
           </div>
           <div class="card-body">
-            <h4 class="card-title">Outdoor Temperature (DS18B20)</h4>
+            <h4 class="card-title">[Field 1] Outdoor Temperature (DS18B20)</h4>
             <p class="card-category">
               Outdoor temperature of sensor DS18B20.</p>
+              <div>
+                <span>Média no período:</span><strong id="field1_avg">71</strong><br>
+                <span>Variação no período:</span><strong id="field1_var">21</strong>
+              </div>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+              <i class="material-icons">access_time</i> Última atualização em <span id="last_update_field1"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-6">
+        <div class="card card-chart">
+          <div class="card-header card-header-danger">
+            <div class="ct-chart" id="temperature"></div>
+          </div>
+          <div class="card-body">
+            <h4 class="card-title">Temperature (Si7021)</h4>
+            <p class="card-category">Temperature of sensor Si7021</p>
           </div>
           <div class="card-footer">
             <div class="stats">
@@ -30,8 +51,8 @@
           </div>
         </div>
       </div>
-      
-      <div class="col-md-4">
+
+      <div class="col-6">
         <div class="card card-chart">
           <div class="card-header card-header-danger">
             <div class="ct-chart" id="temperature"></div>
